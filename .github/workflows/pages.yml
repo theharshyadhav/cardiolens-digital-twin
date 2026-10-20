@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages
+# Publishes the self-contained page (web/index.offline.html -> index.html) and the documentation PDF.
+# The page is fully static; the optional API (backend/server.py) is not part of this deployment.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble site
+        run: |
+          mkdir site
+          cp web/index.offline.html site/index.html
+          cp docs/CardioLens_documentation.pdf site/
+          touch site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site }
+      - id: deployment
+        uses: actions/deploy-pages@v4

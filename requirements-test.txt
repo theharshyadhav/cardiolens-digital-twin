@@ -1,0 +1,9 @@
+# Everything tests/run_all.py needs (also what CI installs).  Browser suite: after installing, run `python -m playwright install chromium`.
+-r requirements-server.txt
+numpy>=1.26
+pandas>=2.2
+scikit-learn==1.9.1      # models/cardiolens_models.joblib was written with this version
+joblib>=1.3
+httpx>=0.27              # FastAPI TestClient (tests/test_api.py)
+playwright>=1.45         # tests/test_browser.py, tests/smoke_mri.py, tools/measure_fps.py
+Pillow>=10               # tests/smoke_mri.py

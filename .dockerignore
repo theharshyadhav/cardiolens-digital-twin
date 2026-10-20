@@ -1,0 +1,9 @@
+# whitelist: the image needs only the server, the model and the self-contained page
+*
+!requirements-server.txt
+!backend
+!models
+!web/web_model.json
+!web/index.offline.html
+**/__pycache__
+**/*.pyc

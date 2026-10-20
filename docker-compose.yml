@@ -1,0 +1,13 @@
+# docker compose up --build   ->  http://localhost:8000
+services:
+  cardiolens:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: "8000"
+      # CARDIOLENS_CORS_ORIGINS: "https://your-site.example"   # default "*" (stateless, read-only API, no credentials)
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped

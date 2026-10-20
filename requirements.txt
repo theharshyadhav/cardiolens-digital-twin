@@ -1,0 +1,11 @@
+# Full development environment: re-train the models (cardiolens/), rebuild the documentation PDF (docs/), run every test and tool.
+# Only running the app needs none of this: open web/index.offline.html, or install requirements-server.txt for the API.
+-r requirements-test.txt
+scipy>=1.11
+openpyxl>=3.1            # reads the .xlsx data set
+shap>=0.46               # cardiolens/final.py (exact SHAP for the exported linear models)
+matplotlib>=3.8          # figures, docs/
+reportlab>=4.0           # docs/make_pdf.py
+pypdf>=4.0               # page-count check of the documentation PDF
+fast-simplification>=0.1.7   # tools/prep_anatomy.py (mesh decimation)
+pydicom>=2.4             # tools/make_cine_sample.py, tests/dump_dicom_reference.py

@@ -1,0 +1,4 @@
+# Runtime dependencies of the optional API / page server (backend/server.py). This is all the Docker image needs.
+fastapi>=0.110
+pydantic>=2.5
+uvicorn>=0.29

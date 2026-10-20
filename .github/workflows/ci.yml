@@ -1,0 +1,31 @@
+name: CI
+on:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:          # re-used by pages.yml so nothing is deployed unless every suite is green
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip, cache-dependency-path: requirements-test.txt }
+      - run: npm ci --no-audit --no-fund
+      - run: pip install -r requirements-test.txt
+      - run: python -m playwright install --with-deps chromium
+      - name: The committed build must match the sources
+        run: python build.py --check
+      - name: All seven suites (parity, API, scan, room, DICOM, cine, browser)
+        run: python tests/run_all.py
+      - name: Docker image builds and the container answers
+        run: |
+          docker build -t cardiolens .
+          docker run -d --name cl -p 8000:8000 cardiolens
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8000/api/health && break || sleep 1; done
+          curl -fsS http://127.0.0.1:8000/ | grep -q "CardioLens 3D"
+          docker rm -f cl

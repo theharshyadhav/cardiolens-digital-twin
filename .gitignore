@@ -1,0 +1,13 @@
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+.env
+# re-created on every test run
+results/screens/
+results/fixtures/
+results/_bad.nii
+# optional build output (python build.py --artifact)
+web/artifact.html
+*.zip
