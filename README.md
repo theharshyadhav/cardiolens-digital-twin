@@ -10,7 +10,7 @@ Research prototype for education and decision support. **Not a diagnostic device
 |---|---|
 | **Project title** | CardioLens — coronary risk studio |
 | **Team details** | **Harsh Yadav**, theharshyadhav@gmail.com |
-| **College / incubator** | **Indian Institute of Technology Madras** |
+| **College** | **Indian Institute of Technology Madras** |
 | **Demo video (Unlisted YouTube)** | <https://youtu.be/bZg4DH5eqr8> |
 | **Live demo** | **[ADD: deployed URL, if any]** |
 | **Open-source licence** | [MIT](LICENSE). Third-party licences: [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) |
